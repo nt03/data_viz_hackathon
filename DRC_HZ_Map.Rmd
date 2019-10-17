@@ -45,7 +45,7 @@ map_DRC <- ggplot() +
   geom_path(data = DRC_shp_df, 
           aes(x = long, y = lat, group = group),
           color = 'black', size = .15)+
-  ggtitle("DRC Health Zones: North Kivu & Ituri")+
+  ggtitle("DRC Health Centers by Health Zones: North Kivu & Ituri")+
   theme_map()
 
 print(map_DRC)
@@ -67,7 +67,7 @@ EB <- readr::read_csv(paste(Andrea,'dviz/Data_ DRC Ebola Outbreak, North Kivu an
 
 
 
-```{r,fig.height=4,fig.width=4}
+```{r,fig.height=3,fig.width=3}
 
 map_DRC_HZ<- 
   map_DRC + 
@@ -78,7 +78,7 @@ print(map_DRC_HZ)
 ```
 
 
-```{r,fig.height=4,fig.width=4}
+```{r,fig.height=3,fig.width=3}
 
 voronoi <- deldir(HZ$LONGITUDE, HZ$LATITUDE) #deldir package to compute the Voronoi tesselation
 
@@ -86,19 +86,19 @@ map_DRC_HZ_v<-
   map_DRC + 
    geom_segment(
     aes(x = x1, y = y1, xend = x2, yend = y2),
-    size = 0.5,
+    size = 0.25,
     data = voronoi$dirsgs,
     linetype = 1,
-    color= "#FFB958")+
+    color= "#a5a5a5")+
   geom_point(data=HZ, aes(x=LONGITUDE, y=LATITUDE),
-             size=.5, alpha=0.8, color='blue', inherit.aes = FALSE)
+             size=0.5, alpha=0.8, color='blue', inherit.aes = FALSE)
 
 print(map_DRC_HZ_v)
 ```
 
 
-```{r,fig.height=4,fig.width=4}
-map_DRC_HZ+geom_voronoi(aes(x=HZ$LONGITUDE, y=HZ$LATITUDE), na.rm= TRUE, color= 'orange')
-```
+```{r,fig.height=3,fig.width=3}
+map_DRC_HZ+geom_voronoi(aes(x=HZ$LONGITUDE, y=HZ$LATITUDE),fill='#FFFFFF00', na.rm= TRUE, color= '#a5a5a5', size=0.25)
 
+```
 

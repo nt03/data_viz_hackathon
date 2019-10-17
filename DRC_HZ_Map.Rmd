@@ -9,6 +9,8 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
 require(ggthemes)
+require(ggvoronoi)
+require(deldir)
 require(maptools)
 require(rgdal)
 require(sf)
@@ -23,7 +25,7 @@ theme_set(theme_bw())
 #Setting unique paths
 Andrea <- '/Users/andreaquevedo/Documents/Georgetown/Fall_2019/TA/'
 
-#Reading Europe Outlines from NUTS Eurostat
+#Reading file
 DRC_path<- paste(Andrea,"dviz/rdc_zone_de_sante_09092019/", sep="")
 DRC_shape <-"RDC_Zone_de_sante_09092019.shp"
 DRC_file <- paste(DRC_path, DRC_shape, sep="")
@@ -36,20 +38,67 @@ DRC_shp_df <- fortify(DRC_shp)
 ```
 
 ## Plotting Map 
-```{r,fig.height=4,fig.width=4}
+```{r, fig.height=3,fig.width=3}
 map_DRC <- ggplot() +
   geom_sf() +
-  coord_sf(crs= "+proj=longlat +datum=WGS84", expand = FALSE)+
+  coord_sf(crs= "+proj=longlat +datum=WGS84",xlim = c(27.5, 30.7), ylim = c(-1.8,2), expand = TRUE)+
   geom_path(data = DRC_shp_df, 
           aes(x = long, y = lat, group = group),
           color = 'black', size = .15)+
-  ggtitle("DRC Health Zones")+
+  ggtitle("DRC Health Centers by Health Zones: North Kivu & Ituri")+
   theme_map()
 
 print(map_DRC)
 ```
 
 
+#Reading health center data 
+```{r}
+HZ <- readr::read_csv(paste(Andrea,'dviz/health_centers.csv', sep=""))
+HZ<-distinct(HZ, LATITUDE,LONGITUDE, .keep_all= TRUE)
+```
 
-#Other Plot
+#Reading ebola data 
+```{r}
+EB <- readr::read_csv(paste(Andrea,'dviz/Data_ DRC Ebola Outbreak, North Kivu and Ituri - MOH-By-Health-Zone.csv', sep=""))
+
+```
+
+
+
+
+```{r,fig.height=3,fig.width=3}
+
+map_DRC_HZ<- 
+  map_DRC + 
+  geom_point(data=HZ, aes(x=LONGITUDE, y=LATITUDE),
+             size=.5, alpha=0.8, color='blue', inherit.aes = FALSE)
+
+print(map_DRC_HZ)
+```
+
+
+```{r,fig.height=3,fig.width=3}
+
+voronoi <- deldir(HZ$LONGITUDE, HZ$LATITUDE) #deldir package to compute the Voronoi tesselation
+
+map_DRC_HZ_v<- 
+  map_DRC + 
+   geom_segment(
+    aes(x = x1, y = y1, xend = x2, yend = y2),
+    size = 0.25,
+    data = voronoi$dirsgs,
+    linetype = 1,
+    color= "#a5a5a5")+
+  geom_point(data=HZ, aes(x=LONGITUDE, y=LATITUDE),
+             size=0.5, alpha=0.8, color='blue', inherit.aes = FALSE)
+
+print(map_DRC_HZ_v)
+```
+
+
+```{r,fig.height=3,fig.width=3}
+map_DRC_HZ+geom_voronoi(aes(x=HZ$LONGITUDE, y=HZ$LATITUDE),fill='#FFFFFF00', na.rm= TRUE, color= '#a5a5a5', size=0.25)
+
+```
 

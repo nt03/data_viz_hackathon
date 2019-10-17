@@ -21,7 +21,7 @@
             <connection class='ogrdirect' directory='/Users/maddie/Documents/DataVizMisc/rgc_zs_equateur' filename='RGC_zs_equateur.shp' ogr-grid-shift-folder='/Applications/Tableau Desktop 2019.2.app/Contents/install/local/proj4' password='' server='' tablename='' />
           </named-connection>
           <named-connection caption='RDC_Zone_de_sante_09092019' name='ogrdirect.17tycqm0jqt4cb18ape7o0jmr5to'>
-            <connection class='ogrdirect' directory='/Users/maddie/Documents/DataVizMisc/rdc_zone_de_sante_09092019' filename='RDC_Zone_de_sante_09092019.shp' ogr-grid-shift-folder='/Applications/Tableau Desktop 2019.2.app/Contents/install/local/proj4' password='' server='' tablename='' />
+            <connection class='ogrdirect' directory='/Users/maddie/Documents/DataVizMisc/dviz/rdc_zone_de_sante_09092019' filename='RDC_Zone_de_sante_09092019.shp' ogr-grid-shift-folder='/Applications/Tableau Desktop 2019.2.app/Contents/install/local/proj4' password='' server='' tablename='' />
           </named-connection>
           <named-connection caption='RGC_as_equateur' name='ogrdirect.1w3nvzi0jm613a137qf0n16lbema'>
             <connection class='ogrdirect' directory='/Users/maddie/Documents/DataVizMisc/rgc_as_equateur' filename='RGC_as_equateur.shp' ogr-grid-shift-folder='/Applications/Tableau Desktop 2019.2.app/Contents/install/local/proj4' password='' server='' tablename='' />
@@ -629,7 +629,7 @@
       <column caption='Coordy' datatype='string' name='[coordy]' role='dimension' type='nominal' />
       <column-instance column='[Nom]' derivation='None' name='[none:Nom:nk]' pivot='key' type='nominal' />
       <extract count='-1' enabled='true' units='records'>
-        <connection access_mode='readonly' authentication='auth-none' author-locale='en_US' class='hyper' dbname='/Users/maddie/Documents/My Tableau Repository/Datasources/RGC_zs_equateur.hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='10/17/2019 02:28:59 AM' username='tableau_internal_user'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_US' class='hyper' dbname='/Users/maddie/Documents/My Tableau Repository/Datasources/RGC_zs_equateur.hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='10/17/2019 03:34:10 PM' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
           <cols>
             <map key='[Area]' value='[Extract].[Area]' />
@@ -673,7 +673,7 @@
             <map key='[coordy]' value='[Extract].[coordy]' />
           </cols>
           <refresh>
-            <refresh-event add-from-file-path='RGC_zs_equateur' increment-value='%null%' refresh-type='create' rows-inserted='568' timestamp-start='2019-10-17 02:28:59.477' />
+            <refresh-event add-from-file-path='RGC_zs_equateur' increment-value='%null%' refresh-type='create' rows-inserted='568' timestamp-start='2019-10-17 15:34:10.632' />
           </refresh>
           <metadata-records>
             <metadata-record class='column'>
@@ -3024,8 +3024,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='11' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='12' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='17' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='18' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone fixed-size='280' h='98000' id='3' is-fixed='true' name='Sheet 1' w='82400' x='800' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />

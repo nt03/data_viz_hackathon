@@ -1,0 +1,55 @@
+---
+title: "DRC_HZ_Map"
+author: "Andrea Quevedo"
+date: "10/17/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(ggthemes)
+require(maptools)
+require(rgdal)
+require(sf)
+require(sp)
+require(plyr)
+require(ggplot2) 
+theme_set(theme_bw())
+```
+
+#Reading shape file 
+```{r}
+#Setting unique paths
+Andrea <- '/Users/andreaquevedo/Documents/Georgetown/Fall_2019/TA/'
+
+#Reading Europe Outlines from NUTS Eurostat
+DRC_path<- paste(Andrea,"dviz/rdc_zone_de_sante_09092019/", sep="")
+DRC_shape <-"RDC_Zone_de_sante_09092019.shp"
+DRC_file <- paste(DRC_path, DRC_shape, sep="")
+DRC_shp <- rgdal::readOGR(DRC_file)
+```
+
+## Converting shapefile to dataframe for use in ggplot2
+```{r}
+DRC_shp_df <- fortify(DRC_shp)
+```
+
+## Plotting Map 
+```{r,fig.height=4,fig.width=4}
+map_DRC <- ggplot() +
+  geom_sf() +
+  coord_sf(crs= "+proj=longlat +datum=WGS84", expand = FALSE)+
+  geom_path(data = DRC_shp_df, 
+          aes(x = long, y = lat, group = group),
+          color = 'black', size = .15)+
+  ggtitle("DRC Health Zones")+
+  theme_map()
+
+print(map_DRC)
+```
+
+
+
+#Other Plot
+
